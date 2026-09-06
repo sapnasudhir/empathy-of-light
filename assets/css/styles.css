@@ -135,7 +135,7 @@ a{color:var(--cocoa-deep)}
 .address .name{font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.8rem;color:var(--cocoa)}
 .address p{margin:6px 0 0;color:var(--muted);font-size:.95rem;line-height:1.5}
 
-.hero-stack{display:grid;gap:18px;align-content:space-between}
+.hero-stack{display:grid;gap:18px;align-self:stretch;align-content:space-between}
 .hero-stack figure{margin:0;box-shadow:var(--shadow);background:var(--cream)}
 .hero-stack img{width:100%;height:clamp(160px,27vw,250px);object-fit:cover}
 @media (max-width:860px){ .hero-stack{align-content:start} }
