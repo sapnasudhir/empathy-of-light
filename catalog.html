@@ -21,8 +21,11 @@
   <div class="cat-intro">
     <h1>The Catalogue</h1>
     <p>Sixty fine art photographs by Sudhir Ramchandran. Search by description,
-       category, catalogue number (1&ndash;60) or product ID. Pricing is drawn live
-       from the gallery's records and may take a few minutes to reflect the latest edit.</p>
+       category, catalogue number (1&ndash;60) or product ID.</p>
+    <p>Each card shows the price of the <strong>framed piece on the gallery wall</strong>.
+       Click any card to see that same photograph in <strong>other sizes and materials
+       held as stock</strong>, with live quantities. Pricing is drawn live from the
+       gallery's records and may take a few minutes to reflect the latest edit.</p>
   </div>
 
   <div class="controls">
@@ -52,6 +55,10 @@
     </div>
   </div>
 </footer>
+
+<div id="modal" class="modal" hidden role="dialog" aria-modal="true" aria-label="Photograph details">
+  <div id="modal-body" class="modal-body"></div>
+</div>
 
 <script src="assets/js/csv.js"></script>
 <script src="assets/js/sheet.js"></script>
