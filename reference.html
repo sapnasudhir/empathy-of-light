@@ -257,13 +257,14 @@
     <div class="cov-doors">
       <a class="door" href="#list" data-go="list">
         <b>List view</b>
-        <span>Every product ID, title, size and price in one table.
-              Sort by Product ID or price, and filter as you type.</span>
+        <span>Every product ID, title, size and Artists Price in one table.
+              Sort by Product ID or Artists Price, and filter as you type.</span>
       </a>
       <a class="door" href="#cards" data-go="cards">
         <b>Card view</b>
-        <span>All 60 works with thumbnails, themes and per-size pricing.
-              Sort by Product ID or price, and filter as you type.</span>
+        <span>All 60 works with thumbnails, themes and per-size
+              Artists Prices. Sort by Product ID or Artists Price, and filter
+              as you type.</span>
       </a>
       <a class="door pdf" href="empathy-of-light-gallerists-reference.pdf" download>
         <b>Download PDF</b>
@@ -279,7 +280,7 @@
         Bangalore 560 001, Karnataka, India</div>
       <div><h4>Supported by</h4>
         <img src="assets/img/srishti-logo.png" alt="Srishti"></div>
-      <div><h4>Issued</h4>18-Sep-2026 12:16 IST<br>60 works &middot; 62 available sizes</div>
+      <div><h4>Issued</h4>18-Sep-2026 12:18 IST<br>60 works &middot; 62 available sizes</div>
     </div>
   </div>
 </section>
@@ -289,26 +290,26 @@
   <div class="toolbar">
     <h2>List View</h2>
     <label class="finder" id="find-list">
-      <input type="search" placeholder="Find by ID, title, size or price"
+      <input type="search" placeholder="Find by ID, title, size or Artists Price"
              aria-label="Filter the list" autocomplete="off">
       <button class="clear" type="button" aria-label="Clear filter">&times;</button>
     </label>
     <span class="lbl">Sort</span>
     <button class="btn sort" data-view="list" data-sort="id">Product ID</button>
-    <button class="btn sort" data-view="list" data-sort="price">Price</button>
+    <button class="btn sort" data-view="list" data-sort="price">Artists Price</button>
   </div>
   <p class="count" id="sum-count"></p>
   <div class="tablewrap">
     <table>
       <thead><tr>
         <th class="c-id">Product ID</th><th class="c-title">Title</th>
-        <th class="c-size">Size</th><th class="c-price">Price</th>
+        <th class="c-size">Size</th><th class="c-price">Artists Price</th>
       </tr></thead>
       <tbody id="sum-body"></tbody>
     </table>
   </div>
   <div class="pagefoot"><span>EMPATHY of LIGHT &middot; Sudhir Ramchandran</span>
-    <span>Generated 18-Sep-2026 12:16 IST</span></div>
+    <span>Generated 18-Sep-2026 12:18 IST</span></div>
 </section>
 
 <!-- ------------------------------------------------------------- cards -->
@@ -316,18 +317,18 @@
   <div class="toolbar">
     <h2>Card View</h2>
     <label class="finder" id="find-cards">
-      <input type="search" placeholder="Find by ID, title, size or price"
+      <input type="search" placeholder="Find by ID, title, size or Artists Price"
              aria-label="Filter the cards" autocomplete="off">
       <button class="clear" type="button" aria-label="Clear filter">&times;</button>
     </label>
     <span class="lbl">Sort</span>
     <button class="btn sort" data-view="cards" data-sort="id">Product ID</button>
-    <button class="btn sort" data-view="cards" data-sort="price">Price</button>
+    <button class="btn sort" data-view="cards" data-sort="price">Artists Price</button>
   </div>
   <p class="count" id="card-count"></p>
   <div class="grid" id="card-grid"></div>
   <div class="pagefoot"><span>EMPATHY of LIGHT &middot; Sudhir Ramchandran</span>
-    <span>Generated 18-Sep-2026 12:16 IST</span></div>
+    <span>Generated 18-Sep-2026 12:18 IST</span></div>
 </section>
 
 <script>
@@ -394,7 +395,7 @@ function renderList(){
         `<td class="c-title">${hilite(it.title, q)}</td>` +
         `<td class="c-size">${nfs ? "&mdash;" : (hilite(s.size, q) || "&mdash;")}</td>` +
         `<td class="c-price${nfs ? " nfs" : ""}">` +
-          (nfs ? "Not for sale" : (hilite(s.price, q) || "Price on request")) +
+          (nfs ? "Not for sale" : (hilite(s.price, q) || "Artists Price on request")) +
         `</td></tr>`
       );
     }
@@ -403,7 +404,7 @@ function renderList(){
     : `<tr><td class="empty" colspan="4">Nothing matches &ldquo;${esc(q)}&rdquo;</td></tr>`;
   document.getElementById("sum-count").textContent =
     (q ? `${shown} of ${TOTAL_ROWS} rows match “${q}” · ` : `${ITEMS.length} works · ${TOTAL_ROWS} available sizes · `) +
-    "sorted by " + (sortState.list === "price" ? "price, highest first" : "Unique Product ID");
+    "sorted by " + (sortState.list === "price" ? "Artists Price, highest first" : "Product ID");
 }
 
 function renderCards(){
@@ -415,7 +416,7 @@ function renderCards(){
       ? `<div class="sizeline nfs"><span>Not for sale</span></div>`
       : `<div class="sizeline"><span><span class="k">Print Size:</span> ` +
         `${hilite(s.size, q) || "&mdash;"}</span><span><span class="k">Artists Price:</span> ` +
-        `<b>${hilite(s.price, q) || "Price on request"}</b></span></div>`).join("");
+        `<b>${hilite(s.price, q) || "Artists Price on request"}</b></span></div>`).join("");
     const chips = it.themes.map(t => `<span class="chip">${esc(t)}</span>`).join("");
     out.push(
       `<article class="card">` +
@@ -434,7 +435,7 @@ function renderCards(){
   document.getElementById("card-count").textContent =
     (q ? `${out.length} of ${ITEMS.length} works match “${q}” · `
        : `${ITEMS.length} works · `) +
-    "sorted by " + (sortState.cards === "price" ? "price, highest first" : "Unique Product ID");
+    "sorted by " + (sortState.cards === "price" ? "Artists Price, highest first" : "Product ID");
 }
 
 const TOTAL_ROWS = ITEMS.reduce((n, i) => n + i.stock.length, 0);
