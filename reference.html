@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Gallerists' Reference &middot; EMPATHY of LIGHT</title>
+<style>
+  :root{
+    --ink:#181614; --muted:#75706a; --line:#ddd6ca; --rule:#c8bfae;
+    --accent:#7c2d12; --chip:#f4f0e8; --paper:#fff; --offset:#f1eee8;
+    --deep:#4a2c17; --cream:#fffdf8;
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{ margin:0; background:var(--cream); color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;
+    -webkit-text-size-adjust:100%; }
+  img{ max-width:100%; display:block; }
+  a{ color:inherit; }
+
+  /* ------------------------------------------------------------------ nav */
+  .nav{ position:sticky; top:0; z-index:20; display:flex; align-items:center;
+    gap:8px; flex-wrap:wrap; padding:8px 20px;
+    background:rgba(255,253,248,.94); backdrop-filter:saturate(180%) blur(8px);
+    border-bottom:1px solid var(--line); }
+  .nav .brand{ font-weight:700; letter-spacing:.3px; color:var(--deep);
+    margin-right:auto; font-size:15px; }
+  .nav .brand small{ display:block; font-family:system-ui,sans-serif;
+    font-size:9px; letter-spacing:1.6px; text-transform:uppercase;
+    color:var(--accent); font-weight:700; }
+  .btn{ font-family:system-ui,sans-serif; font-size:13px; letter-spacing:.4px;
+    padding:10px 15px; border:1px solid var(--rule); border-radius:999px;
+    background:#fff; color:#4a453d; cursor:pointer; text-decoration:none;
+    display:inline-flex; align-items:center; min-height:44px; line-height:1.2;
+    white-space:nowrap; -webkit-tap-highlight-color:transparent; }
+  .btn:hover{ background:var(--chip); }
+  .btn[aria-current="true"]{ background:var(--deep); border-color:var(--deep);
+    color:#fff; }
+  .btn.dl{ border-color:var(--accent); color:var(--accent); font-weight:700; }
+  .btn.dl:hover{ background:var(--accent); color:#fff; }
+
+  .view{ display:none; }
+  .view.on{ display:block; }
+
+  /* ---------------------------------------------------------------- cover */
+  .cover{ max-width:920px; margin:0 auto; padding:0 0 64px; }
+  .cov-head{ padding:44px 28px 0; position:relative; }
+  .cov-rule{ position:absolute; left:0; top:96px; width:10px; bottom:-8px;
+    background:var(--deep); }
+  .cov-logos{ display:flex; align-items:flex-end; gap:16px; }
+  .cov-logos img{ height:60px; width:auto; mix-blend-mode:multiply; }
+  .cov-presents{ font-style:italic; font-size:18px; color:var(--deep); margin:0 0 4px; }
+  .cov-title{ margin:22px 0 0; color:var(--deep); font-weight:700;
+    font-size:clamp(44px,9vw,86px); line-height:.95; letter-spacing:-1.5px; }
+  .cov-title em{ display:block; font-style:italic; font-weight:400;
+    font-size:.62em; letter-spacing:0; margin:2px 0 2px 4px; }
+  .cov-tagline{ margin:20px 0 0; font-style:italic;
+    font-size:clamp(17px,2.4vw,23px); color:var(--deep); }
+  .cov-plate{ margin:30px 0 0; }
+  .cov-plate img{ width:100%; height:clamp(150px,26vw,250px); object-fit:cover; }
+  .cov-credit{ margin:7px 28px 0; font-family:system-ui,sans-serif; font-size:10px;
+    letter-spacing:.7px; text-transform:uppercase; color:#9a8f7e; }
+  .cov-by{ padding:26px 28px 0; }
+  .cov-blurb{ margin:0; font-style:italic; font-size:16px; color:var(--deep); }
+  .cov-artist{ margin:4px 0 0; font-size:clamp(26px,5vw,40px); font-weight:700;
+    letter-spacing:-.6px; color:var(--deep); }
+
+  .cov-doors{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:14px; padding:34px 28px 0; }
+  .door{ display:block; text-decoration:none; border:1px solid var(--rule);
+    border-radius:10px; padding:18px 20px; background:#fff; transition:.15s; }
+  .door:hover{ border-color:var(--deep); transform:translateY(-2px);
+    box-shadow:0 6px 20px rgba(74,44,23,.09); }
+  .door b{ display:block; font-size:19px; color:var(--deep); margin-bottom:5px; }
+  .door span{ font-family:system-ui,sans-serif; font-size:12px; line-height:1.5;
+    color:var(--muted); }
+  .door.pdf b{ color:var(--accent); }
+
+  .cov-foot{ display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:18px; padding:38px 28px 0; margin-top:30px; border-top:1px solid var(--line);
+    font-family:system-ui,sans-serif; font-size:12px; line-height:1.6;
+    color:#5f574c; }
+  .cov-foot h4{ margin:0 0 5px; font-size:10px; letter-spacing:1.8px;
+    text-transform:uppercase; color:var(--accent); }
+  .cov-foot img{ height:26px; width:auto; mix-blend-mode:multiply; }
+
+  /* -------------------------------------------------------------- toolbar */
+  .toolbar{ display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+    max-width:1180px; margin:0 auto; padding:22px 20px 0; }
+  .toolbar h2{ margin:0 auto 0 0; font-size:23px; color:var(--deep); }
+  .toolbar .lbl{ font-family:system-ui,sans-serif; font-size:10px;
+    letter-spacing:1.4px; text-transform:uppercase; color:var(--muted); }
+  .count{ font-family:system-ui,sans-serif; font-size:11px; color:var(--muted);
+    max-width:1180px; margin:0 auto; padding:8px 20px 0; }
+
+  /* -------------------------------------------------------------- summary */
+  .tablewrap{ max-width:1180px; margin:0 auto; padding:14px 20px 60px; }
+  table{ width:100%; border-collapse:collapse; font-size:14px; }
+  th{ font-family:system-ui,sans-serif; font-size:10px; font-weight:700;
+    letter-spacing:.9px; text-transform:uppercase; color:var(--muted);
+    text-align:left; padding:0 10px 9px 0; border-bottom:2px solid var(--deep);
+    white-space:nowrap; position:sticky; top:53px; background:var(--cream); }
+  td{ padding:8px 10px 8px 0; border-bottom:1px solid #eee7da; vertical-align:top; }
+  tbody tr:nth-child(even){ background:#faf7f1; }
+  .c-id{ font-family:ui-monospace,Consolas,"Courier New",monospace; font-size:12px;
+    font-weight:700; color:var(--accent); white-space:nowrap; }
+  .c-size{ white-space:nowrap; }
+  th.c-price, td.c-price{ text-align:right; white-space:nowrap;
+    font-variant-numeric:tabular-nums; font-weight:700; }
+  th.c-framed, td.c-framed{ text-align:center; white-space:nowrap; }
+  .nfs{ font-style:italic; color:var(--muted); font-weight:400; }
+
+  /* ---------------------------------------------------------------- cards */
+  .grid{ max-width:1180px; margin:0 auto;
+    padding:14px 20px 60px; display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:18px; }
+  .card{ border:1px solid var(--line); border-radius:8px; padding:14px 15px;
+    background:#fff; display:flex; flex-direction:column; gap:9px; }
+  .card h3{ margin:0; font-size:16px; line-height:1.28; font-weight:600; }
+  .thumb{ background:var(--offset); border:1px solid #e8e3d9; border-radius:5px;
+    overflow:hidden; aspect-ratio:3/2; }
+  .thumb img{ width:100%; height:100%; object-fit:contain; }
+  .meta{ display:flex; align-items:baseline; gap:9px;
+    padding-top:7px; border-top:1px solid var(--rule); }
+  .meta .pid{ font-family:ui-monospace,Consolas,"Courier New",monospace;
+    font-size:12px; font-weight:700; color:var(--accent); }
+  .meta .cat{ font-family:system-ui,sans-serif; font-size:10px;
+    letter-spacing:1px; text-transform:uppercase; color:var(--muted); }
+  .sizes{ display:flex; flex-direction:column; gap:3px; }
+  .sizeline{ display:flex; justify-content:space-between; gap:10px;
+    font-size:13px; }
+  .sizeline .k{ font-family:system-ui,sans-serif; font-size:9.5px;
+    letter-spacing:.7px; text-transform:uppercase; color:var(--muted); }
+  .sizeline b{ font-variant-numeric:tabular-nums; }
+  .desc{ margin:0; font-size:13px; line-height:1.4; color:#3d3934; }
+  .themes{ display:flex; flex-wrap:wrap; gap:4px; margin-top:auto; }
+  .chip{ font-family:system-ui,sans-serif; font-size:9.5px; letter-spacing:.6px;
+    text-transform:uppercase; color:#5d5850; background:var(--chip);
+    border:1px solid #e6e0d4; padding:2px 7px; border-radius:4px; }
+
+  .pagefoot{ max-width:1180px; margin:0 auto; padding:22px 20px 40px;
+    border-top:1px solid var(--line); display:flex; justify-content:space-between;
+    gap:14px; flex-wrap:wrap; font-family:system-ui,sans-serif; font-size:10px;
+    letter-spacing:.7px; text-transform:uppercase; color:#9a948b; }
+
+  /* ------------------------------------------------------------- mobile */
+  /* Phones get a stacked list instead of a five-column table. A price list is
+     read one work at a time on a phone, and side-scrolling a table to reach the
+     price column is the fastest way to make it unusable in a gallery. */
+  @media (max-width:760px){
+    thead{ position:absolute; width:1px; height:1px; overflow:hidden;
+      clip:rect(0 0 0 0); white-space:nowrap; }
+    table, tbody, tr, td{ display:block; width:auto; }
+    tbody tr{ border:1px solid var(--line); border-radius:8px; background:#fff;
+      padding:12px 14px; margin-bottom:10px; }
+    tbody tr:nth-child(even){ background:#fff; }
+    td{ border:0; padding:3px 0; display:flex; justify-content:space-between;
+      align-items:baseline; gap:14px; }
+    td::before{ content:attr(data-l); font-family:system-ui,sans-serif;
+      font-size:10px; letter-spacing:1px; text-transform:uppercase;
+      color:var(--muted); flex:none; }
+    /* The title carries the row, so it leads and drops its label. */
+    td.c-title{ display:block; font-size:16px; line-height:1.3;
+      margin-bottom:4px; }
+    td.c-title::before{ content:none; }
+    td.c-id{ padding-bottom:6px; }
+    td.c-price{ text-align:right; font-size:16px; }
+    .tablewrap{ padding:14px 16px 50px; }
+  }
+
+  @media (max-width:620px){
+    .cov-head{ padding:30px 20px 0; }
+    .cov-by,.cov-doors,.cov-foot{ padding-left:20px; padding-right:20px; }
+    .cov-credit{ margin-left:20px; }
+    .cov-rule{ display:none; }
+    .nav{ padding:8px 14px; gap:6px; }
+    .nav .brand{ width:100%; margin-bottom:2px; }
+    .toolbar{ padding:18px 16px 0; }
+    .toolbar h2{ width:100%; margin-bottom:4px; }
+    .count{ padding:6px 16px 0; }
+    .grid{ padding:14px 16px 50px; gap:14px; }
+    .cov-doors{ padding-top:26px; }
+  }
+
+  /* Hover styling misfires on touch, where it sticks after a tap. The selected
+     button must keep its filled state, so exclude it - otherwise a tapped tab
+     reverts to a white background and its white label disappears. */
+  @media (hover:none){
+    .btn:not([aria-current="true"]):hover{ background:#fff; }
+    .btn.dl:not([aria-current="true"]):hover{ background:#fff; color:var(--accent); }
+    .door:hover{ transform:none; box-shadow:none; border-color:var(--rule); }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="brand">EMPATHY of LIGHT<small>Gallerists&rsquo; Reference</small></div>
+  <button class="btn" data-go="cover">Cover</button>
+  <button class="btn" data-go="summary">Summary</button>
+  <button class="btn" data-go="cards">Cards</button>
+  <a class="btn dl" href="empathy-of-light-gallerists-reference.pdf" download>Download PDF</a>
+</nav>
+
+<!-- ------------------------------------------------------------- cover -->
+<section id="cover" class="view on">
+  <div class="cover">
+    <div class="cov-head">
+      <div class="cov-rule"></div>
+      <div class="cov-logos">
+        <img src="assets/img/gallery-g-logo.png" alt="Gallery G">
+        <p class="cov-presents">Presents</p>
+      </div>
+      <h1 class="cov-title">EMPATHY<em>of</em>LIGHT</h1>
+      <p class="cov-tagline">Illuminating sight into insight</p>
+    </div>
+    <figure class="cov-plate">
+      <img src="thumbs/48-holi-01-crowd.jpg" alt="Holi Celebrations at Banke Bihari Temple, Vrindavan">
+      <figcaption class="cov-credit">Holi Celebrations at Banke Bihari Temple, Vrindavan &middot; FEST-0001</figcaption>
+    </figure>
+    <div class="cov-by">
+      <p class="cov-blurb">A retrospective of fine art photography by</p>
+      <p class="cov-artist">SUDHIR RAMCHANDRAN</p>
+    </div>
+
+    <div class="cov-doors">
+      <a class="door" href="#summary" data-go="summary">
+        <b>Summary view</b>
+        <span>Every product ID, title, size, price and framing status in one
+              table. Sorts by Product ID or price.</span>
+      </a>
+      <a class="door" href="#cards" data-go="cards">
+        <b>Card view</b>
+        <span>All 60 works with thumbnails, themes and per-size pricing.
+              Sorts by Product ID or price.</span>
+      </a>
+      <a class="door pdf" href="empathy-of-light-gallerists-reference.pdf" download>
+        <b>Download PDF</b>
+        <span>The printable A4 reference &mdash; cover, summary and cards,
+              exactly as issued.</span>
+      </a>
+    </div>
+
+    <div class="cov-foot">
+      <div><h4>Exhibition</h4>6 September to 10 October 2026<br>
+        10:00 AM to 6:00 PM &middot; Closed on Mondays</div>
+      <div><h4>Venue</h4>GALLERY G<br>Maini Sadan, 38, Lavelle Road, 7th Cross<br>
+        Bangalore 560 001, Karnataka, India</div>
+      <div><h4>Supported by</h4>
+        <img src="assets/img/srishti-logo.png" alt="Srishti"></div>
+      <div><h4>Issued</h4>18-Sep-2026 11:54 IST<br>60 works &middot; 62 available sizes</div>
+    </div>
+  </div>
+</section>
+
+<!-- ----------------------------------------------------------- summary -->
+<section id="summary" class="view">
+  <div class="toolbar">
+    <h2>Catalogue Summary</h2>
+    <span class="lbl">Sort</span>
+    <button class="btn sort" data-view="summary" data-sort="id">Product ID</button>
+    <button class="btn sort" data-view="summary" data-sort="price">Price</button>
+  </div>
+  <p class="count" id="sum-count"></p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr>
+        <th class="c-id">Unique Product ID</th><th class="c-title">Title</th><th class="c-size">Size</th>
+        <th class="c-price">Price</th><th class="c-framed">Framed</th>
+      </tr></thead>
+      <tbody id="sum-body"></tbody>
+    </table>
+  </div>
+  <div class="pagefoot"><span>EMPATHY of LIGHT &middot; Sudhir Ramchandran</span>
+    <span>Generated 18-Sep-2026 11:54 IST</span></div>
+</section>
+
+<!-- ------------------------------------------------------------- cards -->
+<section id="cards" class="view">
+  <div class="toolbar">
+    <h2>Card View</h2>
+    <span class="lbl">Sort</span>
+    <button class="btn sort" data-view="cards" data-sort="id">Product ID</button>
+    <button class="btn sort" data-view="cards" data-sort="price">Price</button>
+  </div>
+  <p class="count" id="card-count"></p>
+  <div class="grid" id="card-grid"></div>
+  <div class="pagefoot"><span>EMPATHY of LIGHT &middot; Sudhir Ramchandran</span>
+    <span>Generated 18-Sep-2026 11:54 IST</span></div>
+</section>
+
+<script>
+const ITEMS = [{"pid":"ARCH-0001","cat":"Architecture","title":"Spanish Steps: childhood joy, Keats's poetic backdrop","desc":"","themes":["Decided Moment","Architecture"],"file":"04-child-04-spanish-steps.jpg","pval":15000.0,"stock":[{"size":"A3","price":"₹15,000","nfs":false,"framed":true}]},{"pid":"ARCH-0002","cat":"Architecture","title":"Taj Mahal in the moonlight","desc":"","themes":["Monument","Heritage","Architecture"],"file":"13-arch-01-taj.jpg","pval":50000.0,"stock":[{"size":"A3","price":"₹50,000","nfs":false,"framed":true}]},{"pid":"ARCH-0003","cat":"Architecture","title":"Lightning over Golden Temple, Amritsar","desc":"","themes":["Monument","Heritage","Architecture"],"file":"14-arch-02-venice-burst.jpg","pval":150000.0,"stock":[{"size":"2 ft x 3 ft","price":"₹1,50,000","nfs":false,"framed":true}]},{"pid":"ARCH-0004","cat":"Architecture","title":"Salon d'Hercule in Palace of Versailles","desc":"","themes":["Baroque Art","Architecture"],"file":"15-arch-03-fresco-hall.jpg","pval":15000.0,"stock":[{"size":"15 in x 15 in","price":"₹15,000","nfs":false,"framed":true}]},{"pid":"ARCH-0005","cat":"Architecture","title":"Rainbow over Dunnottar Castle in Aberdeenshire, Scotland","desc":"","themes":["Monument","Heritage","14th Century","Fortress","Architecture"],"file":"16-arch-04-edinburgh.jpg","pval":15000.0,"stock":[{"size":"A3","price":"₹15,000","nfs":false,"framed":true}]},{"pid":"ARCH-0006","cat":"Architecture","title":"Lone drummer at St Peter's Basilica, Rome, at dusk from the Pincio","desc":"St Peter's Basilica, Rome, at dusk from the Pincio","themes":["Heritage","Architecture"],"file":"17-arch-05-paris-dome.jpg","pval":125000.0,"stock":[{"size":"2 ft x 3 ft","price":"₹1,25,000","nfs":false,"framed":true}]},{"pid":"ARCH-0007","cat":"Architecture","title":"Milan Duomo and the Vittorio Emanuele Monument","desc":"Milan Duomo and the Vittorio Emanuele II monument with a marching brass band","themes":["Heritage","Monument","Italian Gothic","Neo-Renaissance","Architecture"],"file":"19-arch-07-milan-duomo.jpg","pval":25000.0,"stock":[{"size":"A3","price":"₹25,000","nfs":false,"framed":true}]},{"pid":"ARCH-0008","cat":"Architecture","title":"Dali's Space Elephant with Obelix and Big Ben","desc":"","themes":["London","Artist","Architecture"],"file":"20-arch-08-camel-bigben.jpg","pval":75000.0,"stock":[{"size":"2 ft x 3 ft","price":"₹75,000","nfs":false,"framed":true}]},{"pid":"ARCH-0009","cat":"Architecture","title":"Venice Binalle graphic design of architecture and nature","desc":"","themes":["Nature","Artist","Venice Binalle Architecture Display","Architecture"],"file":"21-arch-09-tree-wall.jpg","pval":15000.0,"stock":[{"size":"A3","price":"₹15,000","nfs":false,"framed":true}]},{"pid":"ARCH-0010","cat":"Architecture","title":"Harley at Varga Gallery, Woodstock","desc":"","themes":["Artist","Architecture"],"file":"22-arch-10-varga-moto.jpg","pval":75000.0,"stock":[{"size":"2 ft x 3 ft","price":"₹75,000","nfs":false,"framed":true}]},{"pid":"ARCH-0011","cat":"Architecture","title":"Santa Maria della Salute, Venice","desc":"Santa Maria della Salute, Venice, from Hotel Monaco and Grand Canal","themes":["Monument","Venice","Hospitality","Gondola","Water Front","Architecture"],"file":"23-arch-11-venice-salute.jpg","pval":15000.0,"stock":[{"size":"12 in x 24 in","price":"₹15,000","nfs":false,"framed":true}]},{"pid":"ARCH-0012","cat":"Architecture","title":"Art installation at Venice Biennale","desc":"","themes":["Art Installation","Architecture"],"file":"27-hotel-04-striped-lounge.jpg","pval":15000.0,"stock":[{"size":"A3","price":"₹15,000","nfs":false,"framed":true}]},{"pid":"ARCH-0013","cat":"Architecture","title":"Sunset on the Hooghly River, Howrah Bridge","desc":"Sunset on the Hooghly River, part of the Ganges river system, Howrah Bridge, Calcutta, West Bengal","themes":["Linear Perspective","Riverbank","Heritage","Architecture"],"file":"43-street-10-howrah-bridge.jpg","pval":30000.0,"stock":[{"size":"A3","price":"₹30,000","nfs":false,"framed":true}]},{"pid":"ARCH-0014","cat":"Architecture","title":"A Moment in the Wheel of Life, London Eye","desc":"A moment in the wheel of life. Riverwalk by the London Eye, London, UK","themes":["Urban","Couples","Diagonal Lighting","Contemporary Architecture","Riverbank","Architecture"],"file":"51-couple-03-london-eye.jpg","pval":15000.0,"stock":[{"size":"A3","price":"₹15,000","nfs":false,"framed":true}]},{"pid":"ARTI-0001","cat":"Artist","title":"Artists' studio in Bagamoyo, near Dar-es-Salaam, Tanzania","desc":"","themes":["Heritage","Culture","Tanzania","Artist"],"file":"57-africa-01-interior.jpg","pval":100000.0,"stock":[{"size":"24 in x 53 in","price":"₹1,00,000","nfs":false,"framed":true}]},{"pid":"ARTI-0002","cat":"Artist","title":"Artists sell makonde carvings by Coco Beach, Dar-es-Salaam, Tanzania","desc":"","themes":["Triptych","Depth by Layering","Story Telling","Artist"],"file":"58-africa-02-sea-balusters.jpg","pval":15000.0,"stock":[{"size":"A3","price":"₹15,000","nfs":false,"framed":true}]},{"pid":"CHIL-0001","cat":"Children","title":"Girl at Hudson Beach","desc":"","themes":["Children"],"file":"01-child-01-girl-playground.jpg","pval":15000.0,"stock":[{"size":"A3","price":"₹15,000","nfs":false,"framed":true}]},{"pid":"CHIL-0002","cat":"Children","title":"Mother and kids with icecream","desc":"","themes":["Children"],"file":"02-child-02-porch-family.jpg","pval":15000.0,"stock":[{"size":"A3","price":"₹15,000","nfs":false,"framed":true}]},{"pid":"CHIL-0003","cat":"Children","title":"Kids in Bahari Beach","desc":"","themes":["Children"],"file":"03-child-03-beach-kids.jpg","pval":15000.0,"stock":[{"size":"A3","price":"₹15,000","nfs":false,"framed":true}]},{"pid":"CHIL-0004","cat":"Children","title":"Kids with a balloon by a pool deck","desc":"","themes":["Decided Moment","Children"],"file":"05-child-05-pool-ball.jpg","pval":null,"stock":[{"size":"","price":"","nfs":true,"framed":false}]},{"pid":"CHIL-0005","cat":"Children","title":"Breakfast Table with Palm Trees in Misty Light","desc":"People at a breakfast table with palm trees in misty light","themes":["Decided Moment","Tanzania","Children"],"file":"06-child-06-cafe-palms.jpg","pval":null,"stock":[{"size":"","price":"","nfs":true,"framed":false}]},{"pid":"FEST-0001","cat":"Festival","title":"Holi Celebrations at Bhanke Bihari Temple, Vrindavan","desc":"Holi celebrations at Bhanke Bihari Temple, Vrindavan, Mathura District, Uttar Pradesh.","themes":["Character Portrayal","Tenebrism","Festival"],"file":"48-holi-01-crowd.jpg","pval":750000.0,"stock":[{"size":"4 ft x 15 ft","price":"₹7,50,000","nfs":false,"framed":false}]},{"pid":"FEST-0002","cat":"Festival","title":"Cultural splendor during Navrathri in Ahmedabad, Gujarat","desc":"Cultural splendor during Navrathri in Ahmedabad, Gujurat","themes":["Dynamic Motion Blur","Rhythmic Group Composition","Festival"],"file":"59-action-01-dancers.jpg","pval":200000.0,"stock":[{"size":"4 ft x 5 ft","price":"₹2,00,000","nfs":false,"framed":false}]},{"pid":"FEST-0003","cat":"Festival","title":"Buffalo race in Kambala, Tulu region of coastal Karnataka","desc":"","themes":["Layered Composition","Depth by Layering","Rising Sun Backlighting","Dawn","Pan shoot","Festival"],"file":"60-action-02-buffalo-race.jpg","pval":150000.0,"stock":[{"size":"2 ft x 3 ft","price":"₹1,50,000","nfs":false,"framed":true}]},{"pid":"HERI-0001","cat":"Heritage","title":"Two-storeyed mandappa on Hemakuta Hill, Hampi","desc":"Two-storeyed mandappa on Hemakuta Hill, Hampi, Vijayanagara district, Karnataka","themes":["Vijayanagara Architecture","9th - 12th Century AD","Hemakuta Sculpture","UNESCO World Heritage","Heritage"],"file":"31-heritage-01-hampi-mandapa-sunset.jpg","pval":150000.0,"stock":[{"size":"A3","price":"₹1,50,000","nfs":false,"framed":true}]},{"pid":"HERI-0002","cat":"Heritage","title":"Achyutaraya Temple, Hampi","desc":"Achyutaraya Temple from the Martenga Hill at Hampi, Vijayanagara district, Karnataka","themes":["Vijayanagara Architecture","15th C AD","UNESCO World Heritage","Heritage"],"file":"32-heritage-02-hampi-aerial.jpg","pval":250000.0,"stock":[{"size":"2 ft x 3 ft","price":"₹2,50,000","nfs":false,"framed":true}]},{"pid":"HERI-0003","cat":"Heritage","title":"Musical Pillars and Stone Chariot, Hampi","desc":"Musical Pillars and Stone Chariot at Vijaya Vittala Temple, Hampi, Karnataka","themes":["UNESCO World Heritage","Heritage"],"file":"33-heritage-03-hampi-vittala.jpg","pval":150000.0,"stock":[{"size":"A3","price":"₹1,50,000","nfs":false,"framed":true}]},{"pid":"HERI-0004","cat":"Heritage","title":"Romantic moments by Trevi Fountain, Rome, Italy","desc":"","themes":["Baroque Art","Serendipity","Heritage"],"file":"49-couple-01-trevi.jpg","pval":75000.0,"stock":[{"size":"2 ft x 3 ft","price":"₹75,000","nfs":false,"framed":true}]},{"pid":"HOSP-0001","cat":"Hospitality","title":"High-rise hotel room with light streaming in","desc":"","themes":["Architecture","Hospitality"],"file":"24-hotel-01-suite-skyline.jpg","pval":15000.0,"stock":[{"size":"A3","price":"₹15,000","nfs":false,"framed":true}]},{"pid":"HOSP-0002","cat":"Hospitality","title":"Service Staff and customers at heritage hotel, Mumbai","desc":"","themes":["Heritage","Hospitality"],"file":"25-hotel-02-doorman-curtains.jpg","pval":15000.0,"stock":[{"size":"A3","price":"₹15,000","nfs":false,"framed":true}]},{"pid":"HOSP-0003","cat":"Hospitality","title":"Grand Ballroom in Waldorf Astoria, New York","desc":"","themes":["Architecture","Hospitality"],"file":"26-hotel-03-banquet-hall.jpg","pval":75000.0,"stock":[{"size":"2 ft x 3 ft","price":"₹75,000","nfs":false,"framed":true}]},{"pid":"HOSP-0004","cat":"Hospitality","title":"Subterranean dining hall inside the Boscolo Milano Hotel, Milan, Italy","desc":"","themes":["Architecture","Avant Garde","Neo Classical","Hospitality"],"file":"28-hotel-05-restaurant-fireplace.jpg","pval":25000.0,"stock":[{"size":"A3","price":"₹25,000","nfs":false,"framed":true}]},{"pid":"HOSP-0005","cat":"Hospitality","title":"View of Pir Panjal Range, Gulmarg","desc":"View of Pir Panjal range from the Khyber Himalayan Resort & Spa in Gulmarg, J&K, India","themes":["Khyber","Snow Peak","Bedroom View","Hospitality"],"file":"29-hotel-06-himalaya-room.jpg","pval":75000.0,"stock":[{"size":"2 ft x 3 ft","price":"₹75,000","nfs":false,"framed":true}]},{"pid":"HOSP-0006","cat":"Hospitality","title":"Sunset of the Taj Mahal, Agra","desc":"Sunset of the Taj Mahal - Shah Jahan's view from Oberoi Amarvilas, Agra; with Indian dancers, terraced gardens and pool.","themes":["Architecture","Sunset","Landscape","Hospitality"],"file":"30-hotel-07-amarvilas-taj.jpg","pval":150000.0,"stock":[{"size":"4 ft x 6 ft","price":"₹1,50,000","nfs":false,"framed":true}]},{"pid":"NATU-0001","cat":"Nature","title":"Waterfall cascading through dense green jungle, Chickmagalur, Karnataka","desc":"","themes":["Aerial","Foliage","Waterfalls","Nature"],"file":"53-nature-01-waterfall-green.jpg","pval":100000.0,"stock":[{"size":"3 ft x 4 ft","price":"₹1,00,000","nfs":false,"framed":true}]},{"pid":"NATU-0002","cat":"Nature","title":"Sunset by Athirappilly Waterfalls; Thrissur district of Kerala","desc":"","themes":["Diagonals","Sunset","Riverbank","Nature"],"file":"54-nature-02-waterfall-sunset.jpg","pval":25000.0,"stock":[{"size":"12 in x 24 in","price":"₹25,000","nfs":false,"framed":true}]},{"pid":"NATU-0003","cat":"Nature","title":"Birds and Squirrels by the Banyan Tree, Lalbagh","desc":"Birds and squirrels play by banyan tree. Lalbagh Botanical Garden, Bangalore, Karnataka","themes":["Foliage","Depth by Layering","Nature"],"file":"55-nature-03-banyan-tree.jpg","pval":125000.0,"stock":[{"size":"4 ft x 5 ft","price":"₹1,25,000","nfs":false,"framed":true}]},{"pid":"NATU-0004","cat":"Nature","title":"Saint Bernard and its owner in Cubbon Park, Bangalore, Karnataka","desc":"","themes":["Serendipity","Crepiscular Rays","Tyndall Effect","Nature"],"file":"56-nature-04-forest-dog.jpg","pval":15000.0,"stock":[{"size":"A3","price":"₹15,000","nfs":false,"framed":true}]},{"pid":"PORT-0001","cat":"Portraits","title":"Maasai in a red checked shuka seated inside his home.","desc":"","themes":["Chiaroscuro","Character Portrayal","Portraits"],"file":"44-port-01-bamboo-red.jpg","pval":75000.0,"stock":[{"size":"2 ft x 3 ft","price":"₹75,000","nfs":false,"framed":true}]},{"pid":"PORT-0002","cat":"Portraits","title":"Traditionally attired Rajasthani at Pushkar Mela, Ajmer district, Rajasthan.","desc":"","themes":["Character Portrayal","Culture","Festival","Portraits"],"file":"45-port-02-turban-man.jpg","pval":100000.0,"stock":[{"size":"2 ft x 3 ft","price":"₹1,00,000","nfs":false,"framed":true}]},{"pid":"PORT-0003","cat":"Portraits","title":"Mother and child at Pushkar Mela, Ajmer district, Rajasthan","desc":"","themes":["Serendipity","Festival","Madonna and Child Composition","Portraits"],"file":"46-port-04-woman-child.jpg","pval":100000.0,"stock":[{"size":"To be confirmed","price":"₹1,00,000","nfs":false,"framed":true}]},{"pid":"PORT-0004","cat":"Portraits","title":"Woman of the Toda Tribe, Nilgiris","desc":"Woman of Toda Tribe, Nilgiris, Tamil Nadu, wearing traditional Poothkuli Shawl","themes":["Character Portrayal","Culture","Texture","Textile","Directional Lighting","Portraits"],"file":"47-port-03-tribal-woman.jpg","pval":150000.0,"stock":[{"size":"4 ft x 6 ft","price":"₹1,50,000","nfs":false,"framed":true}]},{"pid":"STRT-0001","cat":"Street","title":"Silhouetted boy on a beach with a couple embracing behind","desc":"","themes":["Decided Moment","Tanzania","Street"],"file":"07-child-07-boy-beach.jpg","pval":75000.0,"stock":[{"size":"4 ft x 4 ft","price":"₹75,000","nfs":false,"framed":true}]},{"pid":"STRT-0002","cat":"Street","title":"Cyclist with pet in Weesperzijde area, Amsterdam","desc":"","themes":["Architecture","Neo-Renaissance","Street"],"file":"18-arch-06-amsterdam.jpg","pval":75000.0,"stock":[{"size":"2 ft x 3 ft","price":"₹75,000","nfs":false,"framed":true}]},{"pid":"STRT-0003","cat":"Street","title":"View from a Newsstand near the Duomo, Florence","desc":"View from a newstand near Bargello Museum and the Duomo district in central Florence, Italy","themes":["\"Florence","Italy\"","Street"],"file":"34-street-01-becks.jpg","pval":75000.0,"stock":[{"size":"2 ft x 3 ft","price":"₹75,000","nfs":false,"framed":true}]},{"pid":"STRT-0004","cat":"Street","title":"Childhood Memories of Independence Avenue, Dar-es-Salaam","desc":"Childhood memories of Independence Avenue, (now Samora Ave.) , Dar-es-Salaam, Tanzania","themes":["Afro-Arab Colonial Architecture","Street Vendors","Street"],"file":"35-street-02-arched-facade.jpg","pval":15000.0,"stock":[{"size":"A3","price":"₹15,000","nfs":false,"framed":true}]},{"pid":"STRT-0005","cat":"Street","title":"Minara Masjid, Mohammed Ali Road, Mumbai","desc":"Minara Masjid from Mohammed Ali Road, Mumbai,Mararashtra, depicting street food during Ramadan.","themes":["Festival","Street"],"file":"36-street-03-night-market.jpg","pval":15000.0,"stock":[{"size":"A3","price":"₹15,000","nfs":false,"framed":true}]},{"pid":"STRT-0006","cat":"Street","title":"Multiple Modes of Transportation, Amritsar Junction","desc":"Split second of multiple modes of transportation - outside Amritsar Junction Railway Station, Amritsar, Punjab","themes":["Decided Moment","Street"],"file":"37-street-04-kolkata-bus.jpg","pval":150000.0,"stock":[{"size":"2 ft x 3 ft","price":"₹1,50,000","nfs":false,"framed":true}]},{"pid":"STRT-0007","cat":"Street","title":"Iconic Church Street redeveloped for pedestrians in Bangalore, Karnataka","desc":"","themes":["Redevelopment Project","Urban","Street"],"file":"38-street-05-starbucks-street.jpg","pval":25000.0,"stock":[{"size":"A3","price":"₹25,000","nfs":false,"framed":false}]},{"pid":"STRT-0008","cat":"Street","title":"Flash mob at Church Street - Bangalore, Karnataka","desc":"","themes":["Serendipity","Urban","Street"],"file":"39-street-06-linked-arms.jpg","pval":30000.0,"stock":[{"size":"2 ft x 3 ft","price":"₹30,000","nfs":false,"framed":true}]},{"pid":"STRT-0009","cat":"Street","title":"Le Consulat, Montmartre, Paris","desc":"The bohemian hub of the avant-garde - Le Consulat at Montmartre, Paris; Cultural milieau of inspiration to genre-shaping artists such as Van Gough, Paul Gaugin, Henri de Toulouse-Lautrec, Claude Monet and more.","themes":["Architecture","Wes Andersen Style","Street"],"file":"40-street-07-montmartre.jpg","pval":15000.0,"stock":[{"size":"12 in x 24 in","price":"₹15,000","nfs":false,"framed":false}]},{"pid":"STRT-0010","cat":"Street","title":"Mother and Child at Times Square, New York in the rain","desc":"Times Square, New York in the rain","themes":["Urban","New York","Serendipity","Decided Moment","Street"],"file":"41-street-08-times-sq-rain.jpg","pval":100000.0,"stock":[{"size":"4 ft x 5 ft","price":"₹1,00,000","nfs":false,"framed":false},{"size":"15 in x 22 in","price":"₹25,000","nfs":false,"framed":false}]},{"pid":"STRT-0011","cat":"Street","title":"Serendipity at Trafalgar Square, London","desc":"Chiaroscuro-lit moment of serendipity on Canada Day, at Trafalgar Square, London","themes":["Serendipity","Urban","Trafalgar Square","Chiaroscuro","Street"],"file":"42-street-09-column-balloon.jpg","pval":150000.0,"stock":[{"size":"2 ft x 3 ft","price":"₹1,50,000","nfs":false,"framed":false}]},{"pid":"STRT-0012","cat":"Street","title":"Rickshaw at Times Square at Night, New York","desc":"Times Square at night - a cycle-rickshaw with a seated woman in red and a cyclist","themes":["Modernist Skyscraper","Late 20th C Post Modern","Early 20th C Commercial & Theater","Spectacle","Street"],"file":"50-couple-02-times-sq.jpg","pval":100000.0,"stock":[{"size":"4 ft x 5 ft","price":"₹1,00,000","nfs":false,"framed":false},{"size":"15 in x 22 in","price":"₹25,000","nfs":false,"framed":true}]},{"pid":"STRT-0013","cat":"Street","title":"Sunlit alley with musical notes, in New York City, NY","desc":"","themes":["Depth","Diagonals","Linear Perspective","Street"],"file":"52-couple-04-alley.jpg","pval":100000.0,"stock":[{"size":"3 ft x 4 ft","price":"₹1,00,000","nfs":false,"framed":true}]},{"pid":"WILD-0001","cat":"Wildlife","title":"Colorful birds in Serengetti","desc":"","themes":["Tanzania","Wildlife"],"file":"08-wild-01-dry-birds.jpg","pval":25000.0,"stock":[{"size":"2 ft x 1.5 ft","price":"₹25,000","nfs":false,"framed":true}]},{"pid":"WILD-0002","cat":"Wildlife","title":"Lionesses and a Tawny Eagle, Serengeti","desc":"Serengetti - aerial view of three lionesses and a Tawny Eagle","themes":["Tanzania","Wildlife"],"file":"09-wild-02-foxes.jpg","pval":200000.0,"stock":[{"size":"4 ft x 6 ft","price":"₹2,00,000","nfs":false,"framed":true}]},{"pid":"WILD-0003","cat":"Wildlife","title":"Rumble in the Jungle: Elephants in Nilgiri Biosphere","desc":"","themes":["Nilgiri","Wildlife"],"file":"10-wild-03-green-gorge.jpg","pval":75000.0,"stock":[{"size":"2 ft x 3 ft","price":"₹75,000","nfs":false,"framed":true}]},{"pid":"WILD-0004","cat":"Wildlife","title":"Elephant herd in Sri Lanka","desc":"","themes":["Sri Lanka","Wildlife"],"file":"11-wild-04-pink-dawn.jpg","pval":25000.0,"stock":[{"size":"A3","price":"₹25,000","nfs":false,"framed":true}]},{"pid":"WILD-0005","cat":"Wildlife","title":"Elephants and zebras at Lake Manyara","desc":"","themes":["Tanzania","Wildlife"],"file":"12-wild-05-elephants.jpg","pval":75000.0,"stock":[{"size":"2 ft x 3 ft","price":"₹75,000","nfs":false,"framed":true}]}];
+const sortState = { summary:"id", cards:"id" };
+
+const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g,
+  c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]));
+
+// Dearest first when sorting by price; works with no price fall to the end so
+// the top of the list is always something sellable.
+function ordered(how){
+  const a = ITEMS.slice();
+  if (how === "price") {
+    a.sort((x, y) => (x.pval == null) - (y.pval == null)
+                  || (y.pval || 0) - (x.pval || 0)
+                  || x.pid.localeCompare(y.pid));
+  } else {
+    a.sort((x, y) => x.pid.localeCompare(y.pid));
+  }
+  return a;
+}
+
+function renderSummary(){
+  const rows = [];
+  for (const it of ordered(sortState.summary)) {
+    for (const s of it.stock) {
+      const nfs = s.nfs && !s.price;
+      rows.push(
+        `<tr><td class="c-id" data-l="Product ID">${esc(it.pid)}</td>` +
+        `<td class="c-title" data-l="Title">${esc(it.title)}</td>` +
+        `<td class="c-size" data-l="Size">${nfs ? "&mdash;" : esc(s.size) || "&mdash;"}</td>` +
+        `<td class="c-price${nfs ? " nfs" : ""}" data-l="Price">` +
+          (nfs ? "Not for sale" : (esc(s.price) || "Price on request")) + `</td>` +
+        `<td class="c-framed" data-l="Framed">${nfs ? "&mdash;" : (s.framed ? "Yes" : "&mdash;")}</td></tr>`
+      );
+    }
+  }
+  document.getElementById("sum-body").innerHTML = rows.join("");
+  document.getElementById("sum-count").textContent =
+    `${ITEMS.length} works · ${rows.length} available sizes · sorted by ` +
+    (sortState.summary === "price" ? "price, highest first" : "Unique Product ID");
+}
+
+function renderCards(){
+  const out = [];
+  for (const it of ordered(sortState.cards)) {
+    const lines = it.stock.map(s => (s.nfs && !s.price)
+      ? `<div class="sizeline nfs"><span>Not for sale</span></div>`
+      : `<div class="sizeline"><span><span class="k">Print Size:</span> ` +
+        `${esc(s.size) || "&mdash;"}</span><span><span class="k">Artists Price:</span> ` +
+        `<b>${esc(s.price) || "Price on request"}</b></span></div>`).join("");
+    const chips = it.themes.map(t => `<span class="chip">${esc(t)}</span>`).join("");
+    out.push(
+      `<article class="card">` +
+      `<h3>${esc(it.title)}</h3>` +
+      `<div class="thumb"><img loading="lazy" src="thumbs/${esc(it.file)}" alt="${esc(it.title)}"></div>` +
+      `<div class="meta"><span class="pid">${esc(it.pid)}</span>` +
+      `<span class="cat">${esc(it.cat)}</span></div>` +
+      `<div class="sizes">${lines}</div>` +
+      (it.desc ? `<p class="desc">${esc(it.desc)}</p>` : "") +
+      (chips ? `<div class="themes">${chips}</div>` : "") +
+      `</article>`
+    );
+  }
+  document.getElementById("card-grid").innerHTML = out.join("");
+  document.getElementById("card-count").textContent =
+    `${ITEMS.length} works · sorted by ` +
+    (sortState.cards === "price" ? "price, highest first" : "Unique Product ID");
+}
+
+function show(id){
+  for (const v of document.querySelectorAll(".view")) v.classList.toggle("on", v.id === id);
+  for (const b of document.querySelectorAll(".nav .btn[data-go]"))
+    b.setAttribute("aria-current", b.dataset.go === id ? "true" : "false");
+  if (location.hash.slice(1) !== id) history.replaceState(null, "", "#" + id);
+  window.scrollTo(0, 0);
+}
+
+function markSort(){
+  for (const b of document.querySelectorAll(".btn.sort"))
+    b.setAttribute("aria-current",
+      sortState[b.dataset.view] === b.dataset.sort ? "true" : "false");
+}
+
+document.addEventListener("click", e => {
+  const go = e.target.closest("[data-go]");
+  if (go) { e.preventDefault(); show(go.dataset.go); return; }
+  const s = e.target.closest(".btn.sort");
+  if (s) {
+    sortState[s.dataset.view] = s.dataset.sort;
+    (s.dataset.view === "summary" ? renderSummary : renderCards)();
+    markSort();
+  }
+});
+
+renderSummary(); renderCards(); markSort();
+show(["summary", "cards"].includes(location.hash.slice(1))
+     ? location.hash.slice(1) : "cover");
+</script>
+</body>
+</html>
