@@ -141,7 +141,9 @@
   tbody tr td.c-id{ background:#fff; }
   tbody tr:nth-child(even) td.c-id{ background:#faf7f1; }
   tbody tr:hover td.c-id{ background:var(--chip); }
-  thead th.c-id{ background:var(--deep); z-index:3; }
+  /* .c-id sets the accent brown for the body cells; the header cell sits on the
+     dark brown bar and has to take the white back or it disappears into it. */
+  thead th.c-id{ background:var(--deep); color:#fff; z-index:3; }
   .c-size{ white-space:nowrap; }
   th.c-price, td.c-price{ text-align:right; white-space:nowrap;
     font-variant-numeric:tabular-nums; font-weight:700; }
@@ -277,7 +279,7 @@
         Bangalore 560 001, Karnataka, India</div>
       <div><h4>Supported by</h4>
         <img src="assets/img/srishti-logo.png" alt="Srishti"></div>
-      <div><h4>Issued</h4>18-Sep-2026 12:01 IST<br>60 works &middot; 62 available sizes</div>
+      <div><h4>Issued</h4>18-Sep-2026 12:10 IST<br>60 works &middot; 62 available sizes</div>
     </div>
   </div>
 </section>
@@ -299,14 +301,14 @@
   <div class="tablewrap">
     <table>
       <thead><tr>
-        <th class="c-id">Unique Product ID</th><th class="c-title">Title</th>
+        <th class="c-id">Product ID</th><th class="c-title">Title</th>
         <th class="c-size">Size</th><th class="c-price">Price</th>
       </tr></thead>
       <tbody id="sum-body"></tbody>
     </table>
   </div>
   <div class="pagefoot"><span>EMPATHY of LIGHT &middot; Sudhir Ramchandran</span>
-    <span>Generated 18-Sep-2026 12:01 IST</span></div>
+    <span>Generated 18-Sep-2026 12:10 IST</span></div>
 </section>
 
 <!-- ------------------------------------------------------------- cards -->
@@ -325,7 +327,7 @@
   <p class="count" id="card-count"></p>
   <div class="grid" id="card-grid"></div>
   <div class="pagefoot"><span>EMPATHY of LIGHT &middot; Sudhir Ramchandran</span>
-    <span>Generated 18-Sep-2026 12:01 IST</span></div>
+    <span>Generated 18-Sep-2026 12:10 IST</span></div>
 </section>
 
 <script>
