@@ -144,8 +144,11 @@
   /* .c-id sets the accent brown for the body cells; the header cell sits on the
      dark brown bar and has to take the white back or it disappears into it. */
   thead th.c-id{ background:var(--deep); color:#fff; z-index:3; }
+  /* Centred to match the printed summary: the A3 price and Custom Size sit side
+     by side, and right-then-left made them read as one run-on block. */
+  #list th, #list td{ text-align:center; }
   .c-size{ white-space:nowrap; }
-  th.c-a3, td.c-a3, th.c-price, td.c-price{ text-align:right; white-space:nowrap;
+  th.c-a3, td.c-a3, th.c-price, td.c-price{ white-space:nowrap;
     font-variant-numeric:tabular-nums; font-weight:700; }
   .nfs{ font-style:italic; color:var(--muted); font-weight:400; }
   .empty{ padding:26px 10px; text-align:center; color:var(--muted);
@@ -280,7 +283,7 @@
         Bangalore 560 001, Karnataka, India</div>
       <div><h4>Supported by</h4>
         <img src="assets/img/srishti-logo.png" alt="Srishti"></div>
-      <div><h4>Issued</h4>02-Oct-2026 11:03 IST<br>60 works &middot; 91 available sizes</div>
+      <div><h4>Issued</h4>02-Oct-2026 11:26 IST<br>60 works &middot; 91 available sizes</div>
     </div>
   </div>
 </section>
@@ -310,7 +313,7 @@
     </table>
   </div>
   <div class="pagefoot"><span>EMPATHY of LIGHT &middot; Sudhir Ramchandran</span>
-    <span>Generated 02-Oct-2026 11:03 IST</span></div>
+    <span>Generated 02-Oct-2026 11:26 IST</span></div>
 </section>
 
 <!-- ------------------------------------------------------------- cards -->
@@ -329,7 +332,7 @@
   <p class="count" id="card-count"></p>
   <div class="grid" id="card-grid"></div>
   <div class="pagefoot"><span>EMPATHY of LIGHT &middot; Sudhir Ramchandran</span>
-    <span>Generated 02-Oct-2026 11:03 IST</span></div>
+    <span>Generated 02-Oct-2026 11:26 IST</span></div>
 </section>
 
 <script>
